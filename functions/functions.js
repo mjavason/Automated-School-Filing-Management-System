@@ -1,90 +1,4 @@
-function htmlEntities(str) {
-    return String(str)
 
-        // .replace(/./g, '&#46;')
-        // .replace(/#/g, '&#35;')
-        .replace(/{/g, '&#123;')
-        .replace(/}/g, '&#125;')
-        .replace(/,/g, '&#44;')
-        .replace(/:/g, '&#58;')
-        .replace(/\"/g, '&#34;')
-        .replace(/\'/g, '&#39;')
-        .replace(/\//g, '&#47;')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/\n/g, "<br>").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
-}
-
-function simpleAjaxRequest(url, dataRequest, type) {
-    $.ajax(url, {
-        type: type,
-        dataType: 'json',
-        data: dataRequest,
-        beforeSend: function () {
-            setLoader();
-        },
-        success: function (status, response) {
-            //$('p').append('<br>' + response[0]['firstName'] + '<br>' + response[0].middleName + '<br>' + response[0].lastName);
-            //$('p').append('status: ' + status + ', data: ' + response + '<br>');
-            //console.log(response);
-            swal({
-                //title: "New Course",
-                title: "Success",
-                icon: "success",
-                text: "Welcome Michael!"
-                //button: "Got It!",
-            });
-            //$('#ajax_result').append(JSON.stringify(response, 't', 3) + '<br>');
-            removeLoader();
-        },
-        error: function (error) {
-            $('p').append('Error: ' + error);
-        }
-    });
-}
-
-function simpleAjaxPostRequest(url, dataRequest) {
-    setLoader();
-    $.post(url,   // url
-        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
-        function (data, status, jqXHR) {// success callback
-            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-            var dataParsed = JSON.parse(data);
-            //console.log(dataParsed);
-            removeLoader();
-
-            if (dataParsed[0].error == null) {
-                swal({
-                    //title: "New Course",
-                    title: "Success",
-                    icon: "success",
-                    text: "Welcome " + dataParsed[0].first_name + " " + dataParsed[0].last_name
-                    //button: "Got It!",
-                });
-
-                swal("Welcome " + dataParsed[0].first_name + " " + dataParsed[0].last_name, {
-                    title: "Success",
-                    icon: "success"
-                })
-                    .then((value) => {
-                        //swal(`The returned value is: ${value}`);
-                        //window.location = 'dashboard';
-                    });
-            } else {
-                swal({
-                    //title: "New Course",
-                    title: "Error",
-                    icon: "error",
-                    text: "Error: " + dataParsed[0].error
-                    //button: "Got It!",
-                });
-
-            }
-
-        })
-}
 
 function processLoginAjaxPostRequest(url, dataRequest) {
     console.log(dataRequest);
@@ -128,14 +42,6 @@ function processLoginAjaxPostRequest(url, dataRequest) {
         })
 }
 
-function simpleAjaxGetRequest(url, dataRequest) {
-    $.get(url, // url
-        dataRequest,
-        function (data, status, jqXHR) {  // success callback
-            //alert('status: ' + textStatus + ', data:' + data);
-            $('p').append('status: ' + status + ', data: ' + data);
-        });
-}
 
 function removeLoader() {
     // $(".loader").animate({ opacity: '0.2' });
@@ -341,189 +247,12 @@ function toggleElementVisibility(elementName, isItById) {
         $(elementName).addClass('active');
     }
 }
-
-function calculateProfit() {
-    // calculator-plans
-    // calculator-roi
-    // calculator-profit
-    // calculator-total
-    var amount = parseInt($('#calculator-amount').val());
-    //console.log(amount);
-    if (amount >= 500 && amount <= 4999) {
-        //console.log('inside bronze plan');
-        $('#calculator-plans').prop("selectedIndex", 1);
-        $('#calculator-roi').prop("selectedIndex", 1);
-        $('#calculator-profit').val('$' + (Math.floor(amount * (20 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        $('#calculator-total').val('$' + (amount + Math.floor(amount * (20 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        return true;
-    }
-    if (amount >= 5000 && amount <= 19999) {
-        //console.log('inside silver plan');
-        $('#calculator-plans').prop("selectedIndex", 2);
-        $('#calculator-roi').prop("selectedIndex", 2);
-        $('#calculator-profit').val('$' + (Math.floor(amount * (25 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        $('#calculator-total').val('$' + (amount + Math.floor(amount * (25 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        return true;
-    }
-    if (amount >= 20000 && amount <= 49999) {
-        //console.log('inside gold plan');
-        $('#calculator-plans').prop("selectedIndex", 3);
-        $('#calculator-roi').prop("selectedIndex", 3);
-        $('#calculator-profit').val('$' + (Math.floor(amount * (30 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        $('#calculator-total').val('$' + (amount + Math.floor(amount * (30 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        return true;
-    }
-    if (amount >= 50000 && amount <= 99999) {
-        //console.log('inside diamond plan');
-        $('#calculator-plans').prop("selectedIndex", 4);
-        $('#calculator-roi').prop("selectedIndex", 4);
-        $('#calculator-profit').val('$' + (Math.floor(amount * (35 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        $('#calculator-total').val('$' + (amount + Math.floor(amount * (35 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        return true;
-    }
-    if (amount >= 100000 && amount <= 500000) {
-        //console.log('inside platinum plan');
-        $('#calculator-plans').prop("selectedIndex", 5);
-        $('#calculator-roi').prop("selectedIndex", 5);
-        $('#calculator-profit').val('$' + (Math.floor(amount * (40 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        $('#calculator-total').val('$' + (amount + Math.floor(amount * (40 / 100))).toLocaleString(undefined, { maximumFractionDigits: 0 }));
-        return true;
-    }
-    if (amount > 500000) {
-        //console.log('inside invalid plan');
-        $('#calculator-plans').prop("selectedIndex", 6);
-        $('#calculator-roi').prop("selectedIndex", 6);
-        return true;
-    }
-    if (amount < 500) {
-        //console.log('inside invalid plan');
-        $('#calculator-plans').prop("selectedIndex", 6);
-        $('#calculator-roi').prop("selectedIndex", 6);
-        return true;
-    }
-
-    // switch (amount) {
-    //     case (amount >= 500 && amount <= 4999):
-    //         break;
-
-    //     case (amount >= 5000 || amount <= 19999):
-    //         break;
-
-    //     case (amount >= 20000 || amount <= 49999):
-    //         break;
-
-    //     case (amount >= 50000 || amount <= 99999):
-    //         break;
-
-    //     case (amount >= 100000 || amount <= 500000):
-    //         break;
-
-    //     default:
-    //         break;
-    // }
-    //console.log($('#calculator-plans').val());
-
-}
-
-function emptyDashboardPage() {
-    // $('#dashboardPage').fadeOut('slow', 'swing', function () {
-    //     $('#dashboardPage').empty();
-    //     // elem.html(text[counter]);
-    //     // counter++;
-    //     // if(counter >= text.length) { counter = 0; }
-    //     $('#dashboardPage').fadeIn();
-    // });
-    $("#dashboardPage").focus();
-}
-
-function loadDashboardPages(linkId, url, dataRequest) {
-    //dataRequest = JSON.parse(dataRequest);
-    //setLoader();
-    linkId = document.getElementById(linkId);
-    //console.log(dataRequest);
-    $.post(url, // url
-        dataRequest,
-        function (data, status, jqXHR) {  // success callback
-            //alert('status: ' + textStatus + ', data:' + data);
-            $('#dashboardPage').fadeOut('fast', 'swing', function () {
-                removeActiveClassForAllDashboardLinks();
-                $(linkId).addClass('active');
-                $('.dashboard__sidebar').removeClass('active')
-                $('.overlay').removeClass('active')
-                //$('#dashboardPage').empty();
-                $("#dashboardPage").html(data);
-                $('#dashboardPage').fadeIn();
-            });
-            // $('p').append('status: ' + status + ', data: ' + data);
-        });
-
-    removeLoader();
-    scrollToElement('dashboardPage');
-}
-
-function removeActiveClassForAllDashboardLinks() {
-
-    var dashboardlinks = ['dashboard-active', 'dashboard-invest', 'dashboard-history', 'dashboard-summary', 'dashboard-withdraw'];
-    for (var i = 0; i < dashboardlinks.length; i++) {
-        $(document.getElementById(dashboardlinks[i])).removeClass('active');
-    }
-}
 //console.log('inside the custom function');
 
 function scrollToElement(element) {
     //var container = $('#dashboardPage');
     element = document.getElementById(element);
     element.scrollIntoView();
-}
-
-function createNewInvestment(url, dataRequest) {
-    setLoader();
-    $.post(url,   // url
-        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
-        function (data, status, jqXHR) {// success callback
-            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-            //console.log(data);
-            var dataParsed = JSON.parse(data);
-            //console.log(dataParsed);
-            removeLoader();
-
-            if (dataParsed.error == null) {
-                swal("Click 'Next Step' to go to the payment page", {
-                    title: "Success",
-                    icon: "success",
-                    button: "Next Step!"
-                }).then((value) => {
-                    if (value) {
-                        //swal(`The returned value is: ${value}`);
-                        // jsonArray = [];
-                        // let jsonVar = {
-                        //     "page": "payment",
-                        //     "crypto_currency": dataParsed[0]['investment-currency'],
-                        //     "amount": dataParsed[0]['calculator-amount']
-                        // }
-                        //jsonArray.push(jsonVar);
-                        window.location = 'dashboard?page=payment&amount=' + dataParsed['amount'] + '&cryptocurrency=' + dataParsed['currency'] + '#dashboardPages';
-                        //loadDashboardPages("payment", "functions/ajaxRequests.php", jsonVar);
-                    } else {
-                        //swal(`The returned value is: ${value}`);
-                        window.location = 'dashboard?page=payment&amount=' + data['amount'] + '#dashboardPages';
-                        //loadDashboardPages("payment", "functions/ajaxRequests.php", jsonVar);
-                    }
-                });
-
-            } else {
-                swal({
-                    //title: "New Course",
-                    title: "Error",
-                    icon: "error",
-                    text: "Error: " + dataParsed[0].error
-                    //button: "Got It!",
-                });
-
-            }
-
-        })
-
 }
 
 function showSweetAlert(alert) {
@@ -559,105 +288,6 @@ function showSweetAlert(alert) {
     }
 }
 
-function sendInvestmentPaidRequest(url, dataRequest) {
-    //console.log(dataRequest);
-    swal({
-        title: "Are you sure?",
-        text: "You have paid into the company account. You can only send this message once.",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-        .then((willSend) => {
-            if (willSend) {
-
-                $.post(url, dataRequest,
-                    function (data, status, jqXHR) {// success callback
-                        //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-                        //console.log(data);
-                        var dataParsed = JSON.parse(data);
-                        //console.log(dataParsed);
-                        removeLoader();
-
-                        if (dataParsed.error == null) {
-                            swal("Paid request sent! Your investment will be activated shortly.", {
-                                icon: "success",
-                            });
-                            loadDashboardPages('dashboard-investments', 'functions/ajaxRequests.php', { "page": "active" })
-                            return true;
-                            // jsonArray = [];
-                            // let jsonVar = {
-                            //     "page": "payment",
-                            //     "crypto_currency": dataParsed[0]['investment-currency'],
-                            //     "amount": dataParsed[0]['calculator-amount']
-                            // }
-                            //jsonArray.push(jsonVar);
-                        } else {
-                            swal("An unknown error occured.", {
-                                icon: "error",
-                            });
-                            return false;
-                        }
-                    })
-
-
-
-            } else {
-                //swal("Your imaginary file is safe!");
-            }
-        });
-}
-
-function sendDeleteNotificationRequest(url, dataRequest) {
-    //console.log(dataRequest);
-    swal({
-        title: "Are you sure?",
-        text: "Once deleted, it can't be retrieved.",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-        .then((willSend) => {
-            if (willSend) {
-
-                $.post(url, dataRequest,
-                    function (data, status, jqXHR) {// success callback
-                        //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-                        //console.log(data);
-                        var dataParsed = JSON.parse(data);
-                        //console.log(dataParsed);
-                        removeLoader();
-
-                        if (dataParsed.error == null) {
-                            swal("Notification Deleted.", {
-                                icon: "success",
-                            });
-                            loadDashboardPages('dashboard-investments', 'functions/ajaxRequests.php', { "page": "notifications" })
-                            // window.location = 'dashboard?page=notifications#dashboardPages';
-                            return true;
-                            // jsonArray = [];
-                            // let jsonVar = {
-                            //     "page": "payment",
-                            //     "crypto_currency": dataParsed[0]['investment-currency'],
-                            //     "amount": dataParsed[0]['calculator-amount']
-                            // }
-                            //jsonArray.push(jsonVar);
-                        } else {
-                            swal("An unknown error occured.", {
-                                icon: "error",
-                            });
-                            return false;
-                        }
-                    })
-
-
-
-            } else {
-                //swal("Your imaginary file is safe!");
-            }
-        });
-}
-
 function copyToClipboard(elementId) {
     /* Get the text field */
     var copyText = document.getElementById(elementId);
@@ -679,56 +309,6 @@ function copyToClipboard(elementId) {
     // alert("Copied:" + copyText.value);
 }
 
-function createWithdrawalRequest(url, dataRequest) {
-    setLoader();
-    $.post(url,   // url
-        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
-        function (data, status, jqXHR) {// success callback
-            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
-            //console.log(data);
-            var dataParsed = JSON.parse(data);
-            //console.log(dataParsed);
-            removeLoader();
-
-            if (dataParsed.error == null) {
-                swal("Withdrawal request sent succesfully. You will be credited shortly. Do not send another.", {
-                    title: "Success",
-                    icon: "success",
-                    button: "Got It!"
-                }).then((value) => {
-                    if (value) {
-                        //swal(`The returned value is: ${value}`);
-                        // jsonArray = [];
-                        // let jsonVar = {
-                        //     "page": "payment",
-                        //     "crypto_currency": dataParsed[0]['investment-currency'],
-                        //     "amount": dataParsed[0]['calculator-amount']
-                        // }
-                        //jsonArray.push(jsonVar);
-                        //window.location = 'dashboard#dashboardPages';
-                        //loadDashboardPages("payment", "functions/ajaxRequests.php", jsonVar);
-                    } else {
-                        //swal(`The returned value is: ${value}`);
-                        window.location = 'dashboard#dashboardPages';
-                        //loadDashboardPages("payment", "functions/ajaxRequests.php", jsonVar);
-                    }
-                });
-
-            } else {
-                swal({
-                    //title: "New Course",
-                    title: "Error",
-                    icon: "error",
-                    text: "Error: " + dataParsed.error
-                    //button: "Got It!",
-                });
-
-            }
-
-        })
-
-}
-
 function maxValue(inputElementId, max) {
     inputElement = document.getElementById(inputElementId);
     if (inputElement.value > max) {
@@ -737,173 +317,248 @@ function maxValue(inputElementId, max) {
     //console.log(max);
 }
 
-var myFilterBox = addFilterBox({
-    target: {
-        selector: '.course_head',
-        items: '.courses1 .courses2 .courses3',
-        sources: [
-            '.course_name',
-            '.course_name .course_code'
-        ]
-    },
-    addTo: {
-        selector: '.course_head',
-        position: 'before'
-    },
-    input: {
-        label: 'Search: ',
-        attrs: {
-            class: 'form-control',
-            placeholder: '*CEE121 **COMPUTER ENGINEERING'
-        }
-    },
-    // wrapper: {
-    //     tag: 'div',
-    //     attrs: {
-    //         class: 'filterbox-wrap'
-    //     }
-    // },
-    displays: {
-        counter: {
-            tag: 'span',
-            attrs: {
-                class: 'counter'
-            },
-            addTo: {
-                selector: '.filterbox-wrap',
-                position: 'append'
-            },
-            text: function () {
-                return '<strong>' + this.countVisible() + '</strong>/' + this.countTotal();
-            }
-        },
-        noresults: {
-            tag: 'div',
-            addTo: {
-                selector: '.course_head',
-                position: 'after'
-            },
-            attrs: {
-                class: 'no-results'
-            },
-            text: function () {
-                return !this.countVisible() ? 'No matching course code or title for "' + this.getFilter() + '".' : '';
-            }
-        }
-    },
-    callbacks: {
-        onReady: onFilterBoxReady,
-        afterFilter: function () {
-            this.toggleHide(this.getTarget(), this.isAllItemsHidden());
-        },
-        onEnter: function () {
-            var $firstItem = this.getFirstVisibleItem();
 
-            if ($firstItem) {
-                alert('First visible item: ' + $firstItem.querySelector('td').textContent + '\n(onEnter callback)');
-            }
-        }
-    },
-    highlight: {
-        style: 'background: #FFD662',
-        minChar: 1
-    },
-    filterAttr: 'data-filter',
-    suffix: '-mysuffix',
-    debuglevel: 2,
-    inputDelay: 100,
-    zebra: true,
-    enableObserver: true,
-    initTableColumns: true,
-    useDomFilter: false
-});
 
-var myFilterBox2 = addFilterBox({
-    target: {
-        selector: '.course_head2',
-        items: '.courses1 .courses2 .courses3',
-        sources: [
-            '.course_name',
-            '.course_name .course_code'
-        ]
-    },
-    addTo: {
-        selector: '.course_head2',
-        position: 'before'
-    },
-    input: {
-        label: 'Search: ',
-        attrs: {
-            class: 'form-control',
-            placeholder: '*CEE121 **COMPUTER ENGINEERING'
-        }
-    },
-    // wrapper: {
-    //     tag: 'div',
-    //     attrs: {
-    //         class: 'filterbox-wrap'
-    //     }
-    // },
-    displays: {
-        counter: {
-            tag: 'span',
-            attrs: {
-                class: 'counter'
-            },
-            addTo: {
-                selector: '.filterbox-wrap',
-                position: 'append'
-            },
-            text: function () {
-                return '<strong>' + this.countVisible() + '</strong>/' + this.countTotal();
-            }
-        },
-        noresults: {
-            tag: 'div',
-            addTo: {
-                selector: '.course_head',
-                position: 'after'
-            },
-            attrs: {
-                class: 'no-results'
-            },
-            text: function () {
-                return !this.countVisible() ? 'No matching course code or title for "' + this.getFilter() + '".' : '';
-            }
-        }
-    },
-    callbacks: {
-        onReady: onFilterBoxReady,
-        afterFilter: function () {
-            this.toggleHide(this.getTarget(), this.isAllItemsHidden());
-        },
-        onEnter: function () {
-            var $firstItem = this.getFirstVisibleItem();
 
-            if ($firstItem) {
-                alert('First visible item: ' + $firstItem.querySelector('td').textContent + '\n(onEnter callback)');
-            }
-        }
-    },
-    highlight: {
-        style: 'background: #FFD662',
-        minChar: 1
-    },
-    filterAttr: 'data-filter',
-    suffix: '-mysuffix',
-    debuglevel: 2,
-    inputDelay: 100,
-    zebra: true,
-    enableObserver: true,
-    initTableColumns: true,
-    useDomFilter: false
-});
 
-function onFilterBoxReady() {
-    this.fixTableColumns(this.getTarget());
-    // this.filter('bra');
-    this.focus(true);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// var myFilterBox = addFilterBox({
+//     target: {
+//         selector: '.course_head',
+//         items: '.courses1 .courses2 .courses3',
+//         sources: [
+//             '.course_name',
+//             '.course_name .course_code'
+//         ]
+//     },
+//     addTo: {
+//         selector: '.course_head',
+//         position: 'before'
+//     },
+//     input: {
+//         label: 'Search: ',
+//         attrs: {
+//             class: 'form-control',
+//             placeholder: '*CEE121 **COMPUTER ENGINEERING'
+//         }
+//     },
+//     // wrapper: {
+//     //     tag: 'div',
+//     //     attrs: {
+//     //         class: 'filterbox-wrap'
+//     //     }
+//     // },
+//     displays: {
+//         counter: {
+//             tag: 'span',
+//             attrs: {
+//                 class: 'counter'
+//             },
+//             addTo: {
+//                 selector: '.filterbox-wrap',
+//                 position: 'append'
+//             },
+//             text: function () {
+//                 return '<strong>' + this.countVisible() + '</strong>/' + this.countTotal();
+//             }
+//         },
+//         noresults: {
+//             tag: 'div',
+//             addTo: {
+//                 selector: '.course_head',
+//                 position: 'after'
+//             },
+//             attrs: {
+//                 class: 'no-results'
+//             },
+//             text: function () {
+//                 return !this.countVisible() ? 'No matching course code or title for "' + this.getFilter() + '".' : '';
+//             }
+//         }
+//     },
+//     callbacks: {
+//         onReady: onFilterBoxReady,
+//         afterFilter: function () {
+//             this.toggleHide(this.getTarget(), this.isAllItemsHidden());
+//         },
+//         onEnter: function () {
+//             var $firstItem = this.getFirstVisibleItem();
+
+//             if ($firstItem) {
+//                 alert('First visible item: ' + $firstItem.querySelector('td').textContent + '\n(onEnter callback)');
+//             }
+//         }
+//     },
+//     highlight: {
+//         style: 'background: #FFD662',
+//         minChar: 1
+//     },
+//     filterAttr: 'data-filter',
+//     suffix: '-mysuffix',
+//     debuglevel: 2,
+//     inputDelay: 100,
+//     zebra: true,
+//     enableObserver: true,
+//     initTableColumns: true,
+//     useDomFilter: false
+// });
+
+// var myFilterBox2 = addFilterBox({
+//     target: {
+//         selector: '.course_head2',
+//         items: '.courses1 .courses2 .courses3',
+//         sources: [
+//             '.course_name',
+//             '.course_name .course_code'
+//         ]
+//     },
+//     addTo: {
+//         selector: '.course_head2',
+//         position: 'before'
+//     },
+//     input: {
+//         label: 'Search: ',
+//         attrs: {
+//             class: 'form-control',
+//             placeholder: '*CEE121 **COMPUTER ENGINEERING'
+//         }
+//     },
+//     // wrapper: {
+//     //     tag: 'div',
+//     //     attrs: {
+//     //         class: 'filterbox-wrap'
+//     //     }
+//     // },
+//     displays: {
+//         counter: {
+//             tag: 'span',
+//             attrs: {
+//                 class: 'counter'
+//             },
+//             addTo: {
+//                 selector: '.filterbox-wrap',
+//                 position: 'append'
+//             },
+//             text: function () {
+//                 return '<strong>' + this.countVisible() + '</strong>/' + this.countTotal();
+//             }
+//         },
+//         noresults: {
+//             tag: 'div',
+//             addTo: {
+//                 selector: '.course_head',
+//                 position: 'after'
+//             },
+//             attrs: {
+//                 class: 'no-results'
+//             },
+//             text: function () {
+//                 return !this.countVisible() ? 'No matching course code or title for "' + this.getFilter() + '".' : '';
+//             }
+//         }
+//     },
+//     callbacks: {
+//         onReady: onFilterBoxReady,
+//         afterFilter: function () {
+//             this.toggleHide(this.getTarget(), this.isAllItemsHidden());
+//         },
+//         onEnter: function () {
+//             var $firstItem = this.getFirstVisibleItem();
+
+//             if ($firstItem) {
+//                 alert('First visible item: ' + $firstItem.querySelector('td').textContent + '\n(onEnter callback)');
+//             }
+//         }
+//     },
+//     highlight: {
+//         style: 'background: #FFD662',
+//         minChar: 1
+//     },
+//     filterAttr: 'data-filter',
+//     suffix: '-mysuffix',
+//     debuglevel: 2,
+//     inputDelay: 100,
+//     zebra: true,
+//     enableObserver: true,
+//     initTableColumns: true,
+//     useDomFilter: false
+// });
+
+// function onFilterBoxReady() {
+//     this.fixTableColumns(this.getTarget());
+//     // this.filter('bra');
+//     this.focus(true);
+// }
 
 // function dollarFormat(number) {
 //     //window.alert('This naira format function is working');

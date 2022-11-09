@@ -42,19 +42,23 @@
 							<div class="row">
 								<div class="form-group col">
 									<label class="form-label text-color-dark text-3">Email address <span class="text-color-danger">*</span></label>
-									<input type="text" value="" class="form-control form-control-lg text-4" required>
+									<input id="login_email" required onkeyup="checkIfAllFormFieldsFilled('login_button',getInputValuesAndReturnTheirContentAsJson(['login_email', 'login_password']))" value="<?php if (isset($_COOKIE['client_mail'])) {
+																																																					echo $_COOKIE['client_mail'];
+																																																				} ?>" type="text" value="" class="form-control form-control-lg text-4" required>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group col">
 									<label class="form-label text-color-dark text-3">Password <span class="text-color-danger">*</span></label>
-									<input type="password" value="" class="form-control form-control-lg text-4" required>
+									<input id="login_password" onkeyup="checkIfAllFormFieldsFilled('login_button',getInputValuesAndReturnTheirContentAsJson(['login_email', 'login_password']))" value="<?php if (isset($_COOKIE['client_password'])) {
+																																																			echo $_COOKIE['client_password'];
+																																																		} ?>" id="login_password" type="password" value="" class="form-control form-control-lg text-4" required>
 								</div>
 							</div>
 							<div class="row justify-content-between">
 								<div class="form-group col-md-auto">
 									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" id="rememberme">
+										<input type="checkbox" class="custom-control-input" id="login_remember_me">
 										<label class="form-label custom-control-label cur-pointer text-2" for="rememberme">Remember Me</label>
 									</div>
 								</div>
@@ -64,7 +68,7 @@
 							</div>
 							<div class="row">
 								<div class="form-group col">
-									<button type="submit" class="btn btn-dark btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3" data-loading-text="Loading...">Login</button>
+									<button id="login_button" type="button" onclick="processLoginAjaxPostRequest('functions/loginAjax.php', getInputValuesAndReturnTheirContentAsJson(['login_email', 'login_password', 'login_remember_me']))" class="btn btn-dark btn-modern w-100 text-uppercase rounded-0 font-weight-bold text-3 py-3" data-loading-text="Loading...">Login</button>
 									<!-- <div class="divider">
 										<span class="bg-light px-4 position-absolute left-50pct top-50pct transform3dxy-n50">or</span>
 									</div>
@@ -115,9 +119,9 @@
 
 	</div>
 
-	
 
-	
+
+	<?php require_once('includes/js_imports.php') ?>
 
 	<!-- Vendor -->
 	<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>

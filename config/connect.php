@@ -4,7 +4,7 @@ class DBController
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "esut_gamma";
+	private $database = "jombo";
 
 	private $conn;
 	private $connPDO;
@@ -77,7 +77,7 @@ class DBController
 		} else {
 			die(mysqli_error($this->conn)); //something a user can understand
 			//return false;
-			
+
 		}
 	}
 

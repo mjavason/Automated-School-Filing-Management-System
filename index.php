@@ -218,6 +218,8 @@
 	<a class="demos-redirect" href="index-2#demos" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="right" title="Demos"><img src="img/icons/demos-redirect.png" class="img-fluid" /></a>
 
 
+	<?php require_once('includes/js_imports.php') ?>
+
 	<!-- Vendor -->
 	<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script src="vendor/plugins/js/plugins.min.js"></script>
