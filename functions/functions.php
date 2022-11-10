@@ -179,15 +179,6 @@ function showSweetAlert($type, $id = null)
   }
 }
 
-function showAlertForOperationDoneOnOtherPage()
-{
-  //showSweetAlert('success');
-  if (isset($_SESSION['alert'])) {
-    showSweetAlert($_SESSION['alert']);
-    $_SESSION['alert'] = null;
-  }
-}
-
 function validateEmail($email)
 {
   global $db_handle;
@@ -197,11 +188,11 @@ function validateEmail($email)
   return isset($result) && count($result) > 0;
 }
 
-function validateLecturerEmail($email)
+function validateStaffEmail($email)
 {
   global $db_handle;
   //$response = [];
-  $result = $db_handle->selectAllWhere('lecturers', 'email', $email);
+  $result = $db_handle->selectAllWhere('staff', 'email', $email);
 
   return isset($result) && count($result) > 0;
 }
@@ -266,7 +257,7 @@ function confirmUserEmailAndPassword($postemail, $postpassword, $rememberMe)
     return $result;
   } else {
     //lecturers next
-    $result = $db_handle->selectAllWhereWith2Conditions('lecturers', 'email', $postemail, 'password', sha1($postpassword));
+    $result = $db_handle->selectAllWhereWith2Conditions('staff', 'email', $postemail, 'password', sha1($postpassword));
     if (isset($result) && count($result) > 0) {
       foreach ($result as $row) {
         extract($row);
@@ -274,9 +265,9 @@ function confirmUserEmailAndPassword($postemail, $postpassword, $rememberMe)
         $_SESSION['first_name'] = $first_name;
         $_SESSION['last_name'] = $last_name;
         $_SESSION['full_name'] = $first_name . ' ' . $last_name;
-        $_SESSION['lecturer_id'] = $id;
-        $_SESSION['lecturer_email'] = $postemail;
-        $_SESSION['lecturer_title'] = $title;
+        $_SESSION['staff_id'] = $id;
+        $_SESSION['staff_email'] = $postemail;
+        $_SESSION['staff_title'] = $title;
         $_SESSION['phone'] = $phone;
 
         $_SESSION['super_log'] = true;
@@ -393,22 +384,6 @@ function createNewStudent($firstName, $lastName, $gender, $email, $phone, $reg, 
   return $db_handle->runQueryWithoutResponse($query);
 }
 
-function getCoursesTakenByStudent($regNo)
-{
-  global $db_handle;
-  //$response = [];
-  $result = $db_handle->selectAllWhere('students', 'reg_no', $regNo);
-
-  if (isset($result)) {
-    $coursesTaken = json_decode($result[0]['courses_taken'], true);
-    sort($coursesTaken,);
-
-    return $coursesTaken;
-  } else {
-    return false;
-  }
-}
-
 function getStudentLevel($regNo)
 {
   $years = 0;
@@ -429,19 +404,6 @@ function getStudentLevel($regNo)
   return $years;
 }
 
-function countCoursesPerYear($coursesTaken, $year)
-{
-  $count = 0;
-  foreach ($coursesTaken as $courseTaken) {
-    $courseSessionInfo = getCourseSessionInfo($courseTaken['course_id'], $courseTaken['course_credits']);
-    if (!empty($courseSessionInfo)) {
-      if ($courseSessionInfo['year'] == $year) {
-        $count++;
-      }
-    }
-  }
-  return $count;
-}
 
 function getCalenderYearPerLevel($coursesTaken, $level)
 {
@@ -451,93 +413,6 @@ function getCalenderYearPerLevel($coursesTaken, $level)
     }
   }
 }
-
-function getResultsPerCourseTaken($courseTaken, $semester, $year)
-{
-  //echo $i;
-  //echo 1;
-  global $db_handle;
-  //$response = [];
-  if (isset($courseTaken)) {
-    $result = $db_handle->selectAllWhereWith4Conditions('results', 'course_id', $courseTaken['course_id'], 'course_credits', $courseTaken['course_credits'], 'year', $year, 'semester', $semester);
-
-    //selectAllWhere('students', 'reg_no', $regNo);
-    //echo 2;
-
-    if (isset($result)) {
-      // echo 3;
-      $courseResultsFull = $result;
-      return $courseResultsFull[0];
-    } else {
-      $result = $db_handle->selectAllWhereWith3Conditions('results', 'course_id', $courseTaken['course_id'], 'year', $year, 'semester', $semester);
-
-      //selectAllWhere('students', 'reg_no', $regNo);
-      //echo 2;
-
-      if (isset($result)) {
-        // echo 3;
-        $courseResultsFull = $result;
-        return $courseResultsFull[0];
-      } else {
-        //echo 4;
-        return false;
-        //return '<br>No result found for this course';
-      }
-    }
-  }
-}
-
-function getCourseInfo($id)
-{
-  global $db_handle;
-
-  $result = $db_handle->selectAllWhere('courses', 'id', $id);
-  if (isset($result)) {
-    return $result[0];
-  } else {
-    return false;
-  }
-}
-
-function getPersonalResult($results, $regNo)
-{
-  $resultsObj = json_decode($results, true);
-  //$resultsObj = $results;
-
-  foreach ($resultsObj as $result) {
-    if ($result['reg_num'] == $regNo) {
-      return $result;
-    }
-  }
-  return false;
-}
-
-function returnGrade($score)
-{
-  switch ($score) {
-    case ($score < 40):
-      return 'F';
-
-    case ($score >= 40 && $score < 50):
-      return 'D';
-
-    case ($score >= 50 && $score < 60):
-      return 'C';
-
-    case ($score >= 60 && $score < 70):
-      return 'B';
-
-    case ($score >= 70):
-      return 'A';
-
-    default:
-      return 'X';
-  }
-}
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////// Borrowed From Admin ///////////////////////////////////////////////////////////////////////////////////////
@@ -585,35 +460,4 @@ function getCourseSessionInfo($courseId, $credits)
   } else {
     return false;
   }
-}
-
-function compileIncourse($incourseArray)
-{
-  $scoretotal = 0;
-  $absoluteTotal = 0;
-  if (isset($incourseArray)) {
-    foreach ($incourseArray as $incourse) {
-      $absoluteTotal += $incourse['total'];
-      $scoretotal += $incourse['score'];
-    }
-  } else {
-    return 0;
-  }
-  return ceil(30 * ((($scoretotal / $absoluteTotal) * 100) / 100));
-}
-
-function compileExam($examArray)
-{
-  $scoretotal = 0;
-  $absoluteTotal = 0;
-  if (isset($examArray)) {
-    foreach ($examArray as $exam) {
-      $absoluteTotal += $exam['total'];
-      $scoretotal += $exam['score'];
-    }
-  } else {
-    return 0;
-  }
-
-  return ceil(70 * ((($scoretotal / $absoluteTotal) * 100) / 100));
 }

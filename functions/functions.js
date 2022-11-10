@@ -137,7 +137,7 @@ function toggleButtonDisabled(buttonId) {
 function logout() {
     swal({
         title: "Ready to leave?",
-        text: "Select 'Ok' below if you are ready to end your current session.",
+        text: "Logout!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -155,6 +155,7 @@ function logout() {
 }
 
 function createNewStudent(url, dataRequest) {
+    getConfirmation('Are you sure?', 'Once sent, it cannot be edited until assessed by the school.', linkIfYes)
     console.log(dataRequest);
     setLoader();
     $.post(url,   // url
@@ -192,6 +193,47 @@ function createNewStudent(url, dataRequest) {
             }
 
         })
+}
+
+function sendNewFiles(url, dataRequest) {
+    // if (getSimpleConfirmation('Are you sure?', 'Once sent, it cannot be edited until assessed by the school.') == true) {
+    console.log(dataRequest);
+    setLoader();
+    $.post(url,   // url
+        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
+        function (data, status, jqXHR) {// success callback
+            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
+            var dataParsed = JSON.parse(data);
+            console.log(dataParsed);
+            removeLoader();
+
+            if (dataParsed[0].error == null) {
+                swal(dataParsed[0].success, {
+                    title: "Success",
+                    icon: "success",
+                    button: "Got It!",
+                }).then((value) => {
+                    if (value) {
+                        window.location = 'index';
+                    } else {
+                        //swal(`The returned value is: ${value}`);
+                        window.location = 'index';
+                    }
+                });
+
+            } else {
+                swal({
+                    //title: "New Course",
+                    title: "Error",
+                    icon: "error",
+                    text: "Error: " + dataParsed[0].error
+                    //button: "Got It!",
+                });
+
+            }
+
+        })
+    //  }
 }
 
 function checkIfAllFormFieldsFilled(buttonId, formValues, extraBooleanValue = null, extraBooleanIndex = null) {
@@ -315,6 +357,46 @@ function maxValue(inputElementId, max) {
         inputElement.value = max;
     }
     //console.log(max);
+}
+
+function getConfirmation(messageTitle, messageDescription, linkIfYes) {
+    swal({
+        title: messageTitle,
+        text: messageDescription,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("Successfully Deactivated.", {
+                    icon: "success",
+                });
+                window.location = linkIfYes;
+            } else {
+                //swal("Great Choice!");
+            }
+        });
+}
+
+function getSimpleConfirmation(messageTitle, messageDescription) {
+    reply = false;
+    swal({
+        title: messageTitle,
+        text: messageDescription,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                reply = true;
+            } else {
+
+                //swal("Great Choice!");
+            }
+        });
+    return reply;
 }
 
 

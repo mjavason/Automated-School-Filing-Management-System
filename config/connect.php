@@ -63,11 +63,16 @@ class DBController
 	function runQuery($query)
 	{
 		$result = mysqli_query($this->conn, $query);
-		while ($row = mysqli_fetch_assoc($result)) {
-			$resultset[] = $row;
+		if ($result) {
+
+
+			while ($row = mysqli_fetch_assoc($result)) {
+				$resultset[] = $row;
+			}
+			if (!empty($resultset)) return $resultset;
+		} else {
+			die(mysqli_error($this->conn)); //something a user can understand
 		}
-		if (!empty($resultset))
-			return $resultset;
 	}
 
 	function runQueryWithoutResponse($query)

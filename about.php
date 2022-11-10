@@ -1,7 +1,10 @@
+<?php
+require_once('config/connect.php');
+require_once('functions/functions.php');
+?>
+
 <!DOCTYPE html>
 <html data-style-switcher-options="{'changeLogo': false, 'colorPrimary': '#e23c8e', 'colorSecondary': '#a33188', 'colorTertiary': '#4046b3', 'colorQuaternary': '#171940'}">
-
-<!-- Mirrored from www.okler.net/previews/porto/9.9.0/demo-seo-2-services-detail.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Nov 2022 22:22:18 GMT -->
 
 <head>
 	<title> ESUT Filing Management System</title>

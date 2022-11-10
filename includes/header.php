@@ -5,7 +5,7 @@
 				<div class="header-row">
 					<div class="header-column justify-content-start">
 						<div class="header-row">
-						
+
 						</div>
 					</div>
 					<div class="header-column justify-content-end">
@@ -30,7 +30,7 @@
 				<div class="header-column">
 					<div class="header-row">
 						<div class="header-logo">
-							<a href="demo-seo-2.html">
+							<a href="index">
 								<img alt="Porto" width="126" height="32" src="img/demos/seo-2/logo.png">
 							</a>
 						</div>
@@ -42,16 +42,26 @@
 							<div class="header-nav-main header-nav-main-square header-nav-main-effect-2 header-nav-main-sub-effect-1">
 								<nav class="collapse">
 									<ul class="nav nav-pills" id="mainNav">
-										<li>
-											<a class="nav-link" href="demo-seo-2.html">
-												Home
-											</a>
-										</li>
+										<?php if (!isset($_SESSION['log'])) { ?>
+
+											<li>
+												<a class="nav-link" href="index">
+													Home
+												</a>
+											</li>
+										<?php } else { ?>
+											<li>
+												<a class="nav-link" href="dashboard">
+													Dashboard
+												</a>
+											</li>
+										<?php } ?>
+
 										<li class="dropdown">
-											<a class="dropdown-item dropdown-toggle" href="demo-seo-2-services.html">
-												Services
-											</a>
-											<ul class="dropdown-menu">
+											<!-- <a class="dropdown-item dropdown-toggle" href="demo-seo-2-services.html">
+												Dashboard
+											</a> -->
+											<!-- <ul class="dropdown-menu">
 												<li>
 													<a class="nav-link" href="demo-seo-2-services.html">Overview</a>
 												</li>
@@ -73,18 +83,32 @@
 													<a class="nav-link" href="demo-seo-2-services-detail.html">Social Media
 														Marketing</a>
 												</li>
-											</ul>
+											</ul> -->
 										</li>
 										<li>
-											<a class="nav-link active" href="demo-seo-2-blog.html">
-												Blog
+											<a class="nav-link" href="about">
+												About
 											</a>
 										</li>
 										<li>
-											<a class="nav-link" href="demo-seo-2-contact-us.html">
+											<a class="nav-link" href="contact">
 												Contact Us
 											</a>
 										</li>
+										<?php if (!isset($_SESSION['log'])) { ?>
+											<li>
+												
+												<a class="nav-link" href="login">
+													Login
+												</a>
+											</li>
+										<?php } else { ?>
+											<li>
+											<a class="nav-link"  onclick="logout()">
+													Logout
+												</a>
+											</li>
+										<?php } ?>
 									</ul>
 								</nav>
 							</div>

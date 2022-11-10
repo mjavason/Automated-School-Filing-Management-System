@@ -8,7 +8,7 @@ switch ($_POST) {
     case (isset($_POST['login_email']) && isset($_POST['login_password'])):
         # code...
 
-        if (validateEmail($login_email) || validateLecturerEmail($login_email) || validateSuperAdminEmail($login_email)) {
+        if (validateEmail($login_email) || validateStaffEmail($login_email) || validateSuperAdminEmail($login_email)) {
             print json_encode(confirmUserEmailAndPassword($login_email, $login_password, isset($login_remember_me)));
         } else {
             print json_encode([['error' => 'Invalid Email']]);
