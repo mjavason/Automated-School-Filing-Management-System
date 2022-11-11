@@ -171,7 +171,21 @@ class DBController
 
 	public function selectAllOrderBy($table, $orderBy)
 	{
-		$query = "SELECT * FROM $table ORDER BY `$orderBy` DESC ";
+		$query = "SELECT * FROM $table  ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereOrderByDesc($table, $where, $equals, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereOrderByAsc($table, $where, $equals, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` DESC ";
 		$result = $this->runQuery($query);
 		return $result;
 	}

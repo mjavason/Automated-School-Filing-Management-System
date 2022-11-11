@@ -233,6 +233,9 @@ function confirmUserEmailAndPassword($postemail, $postpassword, $rememberMe)
       $_SESSION['student_set'] = $set_year;
       $_SESSION['phone'] = $phone;
       $_SESSION['student_reg'] = $row['reg_no'];
+      $_SESSION['student_level'] = calculateStudentLevel($set_year);
+      $_SESSION['student_next_filing_session'] = getStudentNextFilingSession($id);
+
 
       $_SESSION['log'] = true;
 
@@ -384,27 +387,6 @@ function createNewStudent($firstName, $lastName, $gender, $email, $phone, $reg, 
   return $db_handle->runQueryWithoutResponse($query);
 }
 
-function getStudentLevel($regNo)
-{
-  $years = 0;
-  $coursesTaken = getCoursesTakenByStudent($regNo);
-
-  // foreach ($coursesTaken as $course) {
-  //   if ($course['course_level'] > $course) {
-  //     $years++;
-  //   }
-  // }
-
-  for ($i = 0; $i < count($coursesTaken); $i++) {
-    if ($coursesTaken[$i]['course_level'] > $years) {
-      $years = $coursesTaken[$i]['course_level'];
-    }
-  }
-
-  return $years;
-}
-
-
 function getCalenderYearPerLevel($coursesTaken, $level)
 {
   for ($i = 0; $i < count($coursesTaken); $i++) {
@@ -414,9 +396,6 @@ function getCalenderYearPerLevel($coursesTaken, $level)
   }
 }
 
-
-///////////////////////////////////////////////////////////////////////// Borrowed From Admin ///////////////////////////////////////////////////////////////////////////////////////
-
 function calculateStudentLevel($set)
 {
   $set = explode('/', $set);
@@ -425,7 +404,7 @@ function calculateStudentLevel($set)
   if (isset($set[0])) {
     $level = ($year - $set[0]);
   }
-  createLog('Success', 'calculateStudentLevel');
+  //createLog('Success', 'calculateStudentLevel');
   if ($level < 1) {
     return 1;
   }
@@ -460,4 +439,44 @@ function getCourseSessionInfo($courseId, $credits)
   } else {
     return false;
   }
+}
+
+function getStudentNextFilingSession($studentId)
+{
+  global $db_handle;
+  //$response = [];
+  $result = $db_handle->selectAllWhereOrderByDesc('file_uploads', 'student_id', $studentId, 'level');
+
+  if (isset($result)) {
+    return ((int)$result[0]['level'] + 1);
+  } else {
+    return 1;
+  }
+}
+
+function addNewFileUploads($courseReg1, $courseReg2, $departmentalFee, $facultyFee, $schoolFees)
+{
+  global $db_handle;
+  $id = $_SESSION['student_id'];
+  $currentFilingSession = $_SESSION['student_next_filing_session'];
+
+  $query = "INSERT INTO `file_uploads` (
+  `student_id`,
+  `level`,	
+  `course_reg1`,
+  `course_reg2`,
+  `school_fees`,	
+  `departmental_fee`,
+  `faculty_fee`,	
+  `status`) VALUES (
+    $id,
+    $currentFilingSession,
+    '$courseReg1',
+    '$courseReg2',
+    '$schoolFees',
+    '$departmentalFee',
+    '$facultyFee',
+    'waiting');";
+
+  return $db_handle->runQueryWithoutResponse($query);
 }

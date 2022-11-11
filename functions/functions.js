@@ -399,7 +399,81 @@ function getSimpleConfirmation(messageTitle, messageDescription) {
     return reply;
 }
 
+function setImageSrc(imageId, inputId, linkTitleId) {
+    linkTitleId = document.getElementById(linkTitleId);
+    inputVal = document.getElementById(inputId);
+    imageId = document.getElementById(imageId);
+    inputVal = $(inputVal).val();
+    imageId.src = inputVal;
 
+    $(imageId).on('load', function () {
+        // linkTitleId.innerText = imageId.contentWindow.title;
+        console.log(imageId.contentDocument.title);
+        if (imageId.contentWindow) {
+            linkTitleId.innerText = imageId.contentWindow.title;
+        }
+        if (imageId.contentDocument) {
+            linkTitleId.innerText = imageId.contentDocument.title;
+        }
+    });
+
+    // $(imageId).ready(function () {
+    //     // linkTitleId.innerText = $(imageId).contentDocument.title;
+    //     console.log($(imageId).contentDocument);
+    //     //$(imageId).contents().find('meta[name=description]').attr("content");
+    //     //$(imageId).contents().find('img');
+    // })
+
+    //linkTitleId.innerText = 'hello world';
+}
+
+function imgError(imageId) {
+    var image = document.getElementById(imageId)
+    image.onerror = "";
+    image.src = '';
+    return true;
+}
+
+function uploadFiles(url, dataRequest) {
+
+    $.post(url,   // url
+        dataRequest,//{ myData: 'This is my data.' }, // data to be submit
+        function (data, status, jqXHR) {// success callback
+            //$('#ajax_result').value = ('status: ' + status + ', data: ' + data + '<br>');
+            var dataParsed = JSON.parse(data);
+            console.log(data);
+            console.log(dataParsed);
+            //removeLoader();
+
+            if (dataParsed[0].error == null) {
+                swal(dataParsed[0].success, {
+                    title: "Success",
+                    icon: "success"
+                })
+
+                    .then((value) => {
+                        if (value) {
+                            //swal(`The returned value is: ${value}`);
+                            window.location = 'index';
+                        } else {
+                            //swal(`The returned value is: ${value}`);
+                            window.location = 'index';
+                        }
+                    });
+
+            } else {
+                swal({
+                    //title: "New Course",
+                    title: "Error",
+                    icon: "error",
+                    text: "Error: " + dataParsed[0].error
+                    //button: "Got It!",
+                });
+
+            }
+
+        })
+}
 
 
 
