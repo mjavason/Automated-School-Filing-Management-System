@@ -4,7 +4,7 @@ require_once('functions/functions.php');
 
 
 if (isset($_SESSION['log'])) {
-    gotoPage("dashboard");
+	gotoPage("dashboard");
 }
 ?>
 

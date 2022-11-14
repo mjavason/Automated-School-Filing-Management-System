@@ -282,7 +282,7 @@ if (!isset($_SESSION['log'])) {
 
 					<div class="row g-0 p-5">
 						<div class="col-lg-6 mb-5 mb-lg-0">
-							<!-- 
+<!-- 							
 							<h4>Disabled</h4>
 
 							<button class="btn btn-primary mb-2" disabled="">Primary</button>

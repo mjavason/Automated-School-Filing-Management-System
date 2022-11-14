@@ -185,7 +185,21 @@ class DBController
 
 	public function selectAllWhereOrderByAsc($table, $where, $equals, $orderBy)
 	{
-		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` DESC ";
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' ORDER BY `$orderBy` ASC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereWith2ConditionsOrderByDesc($table, $where, $equals, $where2, $equals2, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' AND $where2 ='" . $equals2 . "'ORDER BY `$orderBy` DESC ";
+		$result = $this->runQuery($query);
+		return $result;
+	}
+
+	public function selectAllWhereWith2ConditionsOrderByAsc($table, $where, $equals, $where2, $equals2, $orderBy)
+	{
+		$query = "SELECT * FROM $table WHERE $where ='" . $equals . "' AND $where2 ='" . $equals2 . "' ORDER BY `$orderBy` ASC ";
 		$result = $this->runQuery($query);
 		return $result;
 	}

@@ -8,6 +8,8 @@
 
 	<!-- Mobile Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+	<meta property="og:image" content="https://bitstarbtrade.site/mike/img/meta/samplepage.png">
+
 
 	<!-- Web Fonts  -->
 	<link id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&amp;display=swap"

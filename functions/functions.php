@@ -445,6 +445,8 @@ function getStudentNextFilingSession($studentId)
 {
   global $db_handle;
   //$response = [];
+
+  // $result = $db_handle->selectAllWhereWith2ConditionsOrderByDesc('file_uploads', 'student_id', $studentId, 'status', 'Rejected', 'level');
   $result = $db_handle->selectAllWhereOrderByDesc('file_uploads', 'student_id', $studentId, 'level');
 
   if (isset($result)) {
@@ -476,7 +478,72 @@ function addNewFileUploads($courseReg1, $courseReg2, $departmentalFee, $facultyF
     '$schoolFees',
     '$departmentalFee',
     '$facultyFee',
-    'waiting');";
+    'Waiting');";
 
   return $db_handle->runQueryWithoutResponse($query);
+}
+
+
+function getAllFileSessionsUploaded($studentId)
+{
+  global $db_handle;
+  //$response = [];
+  $result = $db_handle->selectAllWhereOrderByAsc('file_uploads', 'student_id', $studentId, 'level');
+
+  if (isset($result)) {
+    return $result;
+  } else {
+    return false;
+  }
+}
+
+function returnColorPerStatus($status)
+{
+  switch ($status) {
+    case 'Waiting':
+      return 'tertiary';
+
+    case 'Approved':
+      return 'success';
+
+    case 'Rejected':
+      return 'danger';
+
+    default:
+      return 'warning';
+  }
+}
+
+function returnImagePerStatus($status)
+{
+  switch ($status) {
+    case 'Waiting':
+      return 'file_waiting.svg';
+
+    case 'Approved':
+      return 'file_approved.svg';
+
+    case 'Rejected':
+      return 'file_rejected.svg';
+
+    default:
+      return 'file_not_found.svg';
+  }
+}
+
+function returnFaIconPerStatus($status)
+{
+  switch ($status) {
+    case 'Waiting':
+      return 'rotate';
+
+    case 'Approved':
+      return 'check';
+
+    case 'Rejected':
+      return 'close';
+
+    default:
+      return 'warning';
+  }
 }

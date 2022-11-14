@@ -97,14 +97,14 @@
 										</li>
 										<?php if (!isset($_SESSION['log'])) { ?>
 											<li>
-												
+
 												<a class="nav-link" href="login">
 													Login
 												</a>
 											</li>
 										<?php } else { ?>
 											<li>
-											<a class="nav-link"  onclick="logout()">
+												<a class="nav-link" onclick="logout()">
 													Logout
 												</a>
 											</li>

@@ -4,7 +4,7 @@ require_once('functions/functions.php');
 
 
 if (!isset($_SESSION['log'])) {
-    gotoPage("login");
+	gotoPage("login");
 }
 ?>
 
@@ -36,25 +36,25 @@ if (!isset($_SESSION['log'])) {
 						<div class="bg-color-tertiary rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-2 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1450" data-appear-animation-duration="2s">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-3 appear-animation" data-appear-animation="expandIn" data-appear-animation-delay="1300">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.3, 'transition': true, 'transitionDuration': 1000}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.3, 'transition': true, 'transitionDuration': 1000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-small custom-circle-pos-4 appear-animation" data-appear-animation="expandIn" data-appear-animation-delay="1600">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.6, 'transition': true, 'transitionDuration': 500}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.6, 'transition': true, 'transitionDuration': 500}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-5 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1050" data-appear-animation-duration="2s">
-						<div class="bg-color-secondary rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>
+						<div class="bg-color-secondary rounded-circle w-95 h-95" data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-6 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1200" data-appear-animation-duration="2s">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.8, 'transition': true, 'transitionDuration': 500}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.8, 'transition': true, 'transitionDuration': 500}"></div>
 					</div>
 					<div class="custom-circle custom-circle-small custom-circle-pos-7 appear-animation" data-appear-animation="expandIn" data-appear-animation-delay="1700">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.3, 'transition': true, 'transitionDuration': 1000}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'top', 'speed': 0.3, 'transition': true, 'transitionDuration': 1000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-8 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1350" data-appear-animation-duration="2s">
-						<div class="custom-bg-color-grey-2 rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 500}"></div>
+						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 500}"></div>
 					</div>
 					<div class="row align-items-center pt-4">
 						<div class="col-md-6 pb-5 mb-md-5">
@@ -96,37 +96,44 @@ if (!isset($_SESSION['log'])) {
 					<div class="row align-items-center">
 						<div class="col-lg-7 pe-lg-5">
 							<div class="row align-items-center">
-								<div class="col-md-6">
-									<div class="card position-relative border-0 custom-box-shadow-1 custom-border-radius-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="850">
-										<div class="custom-dots-rect-1" style="background-image: url(img/demos/seo-2/dots-group.png);"></div>
-										<div class="card-body text-center pt-5">
-											<img src="img/demos/seo-2/icons/file_approved.svg" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
-											<h4 class="text-color-dark font-weight-semibold mb-2">Year One (First Semester)</h4>
-											<p>Approved <i class="fa fa-check text-color-success"></i></p>
-											<a href="demo-seo-2-services-detail.html" class="text-color-tertiary font-weight-bold">details...</a>
-										</div>
-									</div>
-									<div class="card position-relative border-0 custom-box-shadow-1 custom-border-radius-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="850">
-										<div class="custom-dots-rect-1" style="background-image: url(img/demos/seo-2/dots-group.png);"></div>
-										<div class="card-body text-center pt-5">
-											<img src="img/demos/seo-2/icons/file_approved.svg" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
-											<h4 class="text-color-dark font-weight-semibold mb-2">Year Two (First Semester)</h4>
-											<p>Approved <i class="fa fa-check text-color-success"></i></p>
-											<a href="demo-seo-2-services-detail.html" class="text-color-tertiary font-weight-bold">details...</a>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-								<div class="card position-relative border-0 custom-box-shadow-1 custom-border-radius-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="850">
-										<div class="custom-dots-rect-1" style="background-image: url(img/demos/seo-2/dots-group.png);"></div>
-										<div class="card-body text-center pt-5">
-											<img src="img/demos/seo-2/icons/file_waiting.svg" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
-											<h4 class="text-color-dark font-weight-semibold mb-2">Year One (Second semester)</h4>
-											<p>Waiting <i class="fa fa-refresh text-color-warning"></i></p>
-											<a href="demo-seo-2-services-detail.html" class="text-color-tertiary font-weight-bold">details...</a>
-										</div>
-									</div>
-								</div>
+								<?php
+								$studentFileUploads = getAllFileSessionsUploaded($_SESSION['student_id']);
+								if ($studentFileUploads) {
+									foreach ($studentFileUploads as $upload) {
+								?>
+										<?php if ($upload['level'] % 2) { ?>
+											<div class="col-md-6">
+												<div class="card position-relative border-0 custom-box-shadow-1 custom-border-radius-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="850">
+													<div class="custom-dots-rect-1" style="background-image: url(img/demos/seo-2/dots-group.png);"></div>
+													<div class="card-body text-center pt-5">
+														<img src="img/demos/seo-2/icons/<?= returnImagePerStatus($upload['status']) ?>" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
+														<h4 class="text-color-dark font-weight-semibold mb-2">Year <?= $upload['level'] ?></h4>
+														<p><?= $upload['status'] ?> <i class="fa fa-<?= returnFaIconPerStatus($upload['status']) ?> text-color-<?= returnColorPerStatus($upload['status']) ?>"></i></p>
+														<a href="#" class="text-color-tertiary font-weight-bold">details...</a>
+													</div>
+												</div>
+
+
+											</div>
+										<?php } else { ?>
+											<div class="col-md-6">
+												<div class="card position-relative border-0 custom-box-shadow-1 custom-border-radius-1 mb-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="850">
+													<div class="custom-dots-rect-1" style="background-image: url(img/demos/seo-2/dots-group.png);"></div>
+													<div class="card-body text-center pt-5">
+														<img src="img/demos/seo-2/icons/<?= returnImagePerStatus($upload['status']) ?>" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
+														<h4 class="text-color-dark font-weight-semibold mb-2">Year <?= $upload['level'] ?></h4>
+														<p><?= $upload['status'] ?> <i class="fa fa-<?= returnFaIconPerStatus($upload['status']) ?> text-color-<?= returnColorPerStatus($upload['status']) ?>"></i></p>
+														<a href="#" class="text-color-tertiary font-weight-bold">details...</a>
+													</div>
+												</div>
+
+
+											</div>
+
+								<?php }
+									}
+								} ?>
+
 							</div>
 						</div>
 
