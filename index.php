@@ -5,6 +5,10 @@ require_once('functions/functions.php');
 if (isset($_SESSION['log'])) {
 	gotoPage("dashboard");
 }
+
+if (isset($_SESSION['super_log'])) {
+	gotoPage("../admin/dashboard");
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +36,7 @@ if (isset($_SESSION['log'])) {
 			<section class="section custom-bg-color-light-1 border-0 pt-5 m-0">
 				<div class="container position-relative z-index-1 pt-5 mt-5">
 					<div class="custom-circle custom-circle-wrapper custom-circle-big custom-circle-pos-1 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="900" data-appear-animation-duration="2s">
-						<div class="bg-color-tertiary rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}"></div>
+						<div class="bg-color-tertiary rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-2 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1450" data-appear-animation-duration="2s">
 						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>

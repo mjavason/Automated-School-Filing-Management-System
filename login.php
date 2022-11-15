@@ -6,6 +6,10 @@ require_once('functions/functions.php');
 if (isset($_SESSION['log'])) {
 	gotoPage("dashboard");
 }
+
+if (isset($_SESSION['super_log'])) {
+	gotoPage("../admin/dashboard");
+}
 ?>
 
 <!DOCTYPE html>

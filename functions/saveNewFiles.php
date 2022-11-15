@@ -16,7 +16,11 @@ $targetPath3 = '..' . $ds . $storeFolder . $ds . $_SESSION['student_reg'] . $ds 
 $targetPath4 = '..' . $ds . $storeFolder . $ds . $_SESSION['student_reg'] . $ds . $year . $ds . 'faculty_fee' . $ds;  //4
 $targetPath5 = '..' . $ds . $storeFolder . $ds . $_SESSION['student_reg'] . $ds . $year . $ds . 'school_fees' . $ds;  //4
 
-
+if (!is_dir($targetPath1)) echo $targetPath1 . '<br>';
+if (!is_dir($targetPath2)) echo $targetPath2 . '<br>';
+if (!is_dir($targetPath3)) echo $targetPath3 . '<br>';
+if (!is_dir($targetPath4)) echo $targetPath4 . '<br>';
+if (!is_dir($targetPath5)) echo $targetPath5 . '<br>';
 
 if (is_dir($targetPath1) && is_dir($targetPath2) && is_dir($targetPath3) && is_dir($targetPath4) && is_dir($targetPath5)) {
     $file1 = scandir($targetPath1, 1)[0];

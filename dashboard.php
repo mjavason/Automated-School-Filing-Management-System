@@ -33,7 +33,7 @@ if (!isset($_SESSION['log'])) {
 			<section class="section custom-bg-color-light-1 border-0 pt-5 m-0">
 				<div class="container position-relative z-index-1 pt-5 mt-5">
 					<div class="custom-circle custom-circle-wrapper custom-circle-big custom-circle-pos-1 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="900" data-appear-animation-duration="2s">
-						<div class="bg-color-tertiary rounded-circle w-100 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}"></div>
+						<div class="bg-color-tertiary rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}"></div>
 					</div>
 					<div class="custom-circle custom-circle-medium custom-circle-pos-2 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1450" data-appear-animation-duration="2s">
 						<div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.2, 'transition': true, 'transitionDuration': 2000}"></div>
@@ -109,7 +109,7 @@ if (!isset($_SESSION['log'])) {
 														<img src="img/demos/seo-2/icons/<?= returnImagePerStatus($upload['status']) ?>" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
 														<h4 class="text-color-dark font-weight-semibold mb-2">Year <?= $upload['level'] ?></h4>
 														<p><?= $upload['status'] ?> <i class="fa fa-<?= returnFaIconPerStatus($upload['status']) ?> text-color-<?= returnColorPerStatus($upload['status']) ?>"></i></p>
-														<a href="#" class="text-color-tertiary font-weight-bold">details...</a>
+														<a href="upload_details?id=<?= $upload['id'] ?>&level=<?= $upload['level'] ?>" class="text-color-tertiary font-weight-bold">details...</a>
 													</div>
 												</div>
 
@@ -123,7 +123,7 @@ if (!isset($_SESSION['log'])) {
 														<img src="img/demos/seo-2/icons/<?= returnImagePerStatus($upload['status']) ?>" class="img-fluid mb-4 pb-2" width="80" height="80" alt="" data-icon data-plugin-options="{'onlySVG': true, 'extraClass': 'svg-fill-color-tertiary pb-2 mb-4'}" />
 														<h4 class="text-color-dark font-weight-semibold mb-2">Year <?= $upload['level'] ?></h4>
 														<p><?= $upload['status'] ?> <i class="fa fa-<?= returnFaIconPerStatus($upload['status']) ?> text-color-<?= returnColorPerStatus($upload['status']) ?>"></i></p>
-														<a href="#" class="text-color-tertiary font-weight-bold">details...</a>
+														<a href="upload_details?id=<?= $upload['id'] ?>&level=<?= $upload['level'] ?>" class="text-color-tertiary font-weight-bold">details...</a>
 													</div>
 												</div>
 
