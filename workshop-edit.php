@@ -5,8 +5,9 @@ require_once('functions/functions.php');
 if (!isset($_SESSION['log'])) {
 	gotoPage("login");
 }
-$_SESSION['student_next_filing_session'] = getStudentNextFilingSession($_SESSION['student_id']);
-
+$uploadInfo = getUploadInfo($_GET['upload_id']);
+$staffInfo = getStaffInfo($uploadInfo['staff_id']);
+$_SESSION['student_next_filing_session'] = $uploadInfo['level'];
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@ $_SESSION['student_next_filing_session'] = getStudentNextFilingSession($_SESSION
 
 
 <head>
-	<title>Year <?= $_SESSION['student_next_filing_session'] ?> Workshop ESUT Filing Management System</title>
+	<title>Year <?= $uploadInfo['level'] ?> Workshop ESUT Filing Management System</title>
 	<meta name="keywords" content="WebSite Template" />
 	<meta name="description" content="Porto - Multipurpose Website Template">
 	<meta name="author" content="okler.net">
@@ -80,7 +81,7 @@ $_SESSION['student_next_filing_session'] = getStudentNextFilingSession($_SESSION
 							<div class="overflow-hidden">
 								<ul class="breadcrumb d-block text-center appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="800">
 									<li><a href="demo-seo-2.html">Home</a></li>
-									<li class="active">Upload New Files</li>
+									<li class="active">ReUpload Files For Year <?= $uploadInfo['level'] ?></li>
 								</ul>
 							</div>
 							<div class="overflow-hidden mb-4">
@@ -298,7 +299,7 @@ $_SESSION['student_next_filing_session'] = getStudentNextFilingSession($_SESSION
 							<span class="help-block">Upload all five files(Course Registration(First and Second Semester), School, Departmental and Faculty Fees)<br>After link is done being input, make sure the image preview matches what you selected and remove them if need be.</span>
 
 
-							<button onclick="uploadFiles('functions/saveNewFiles.php', null)" class="btn btn-primary w-100 mb-2">Submit</button>
+							<button onclick="uploadFiles('functions/saveNewFiles.php?upload_id=<?= $uploadInfo['id'] ?>&upload_level=<?= $uploadInfo['level'] ?>', null)" class="btn btn-primary w-100 mb-2">ReSubmit</button>
 
 						</div>
 					</div>

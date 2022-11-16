@@ -6,9 +6,11 @@ require_once('functions/functions.php');
 if (!isset($_SESSION['log'])) {
     gotoPage("login");
 }
-if (!isset($_GET['id']) && !isset($_GET['level'])) {
+if (!isset($_GET['upload_id']) && !isset($_GET['level'])) {
     gotoPage('dashboard');
 }
+$uploadInfo = getUploadInfo($_GET['upload_id']);
+$staffInfo = getStaffInfo($uploadInfo['staff_id']);
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ if (!isset($_GET['id']) && !isset($_GET['level'])) {
 
             <section class="page-header page-header-lg custom-bg-color-light-1 border-0 m-0">
                 <div class="container position-relative pt-5 pb-4 mt-5">
-                    <div class="custom-circle custom-circle-wrapper custom-circle-big custom-circle-pos-1 custom-circle-pos-1-1 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="900" data-appear-animation-duration="2s">
+                    <!-- <div class="custom-circle custom-circle-wrapper custom-circle-big custom-circle-pos-1 custom-circle-pos-1-1 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="900" data-appear-animation-duration="2s">
                         <div class="bg-color-tertiary rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.5, 'transition': true, 'transitionDuration': 1000}">
                         </div>
                     </div>
@@ -58,7 +60,7 @@ if (!isset($_GET['id']) && !isset($_GET['level'])) {
                     <div class="custom-circle custom-circle-medium custom-circle-pos-6 custom-circle-pos-6-6 appear-animation" data-appear-animation="expandInWithBlur" data-appear-animation-delay="1200" data-appear-animation-duration="2s">
                         <div class="custom-bg-color-grey-2 rounded-circle w-95 h-100" data-plugin-float-element data-plugin-options="{'startPos': 'bottom', 'speed': 0.8, 'transition': true, 'transitionDuration': 500}">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row py-5 mb-5 mt-2 p-relative z-index-1">
                         <div class="col">
                             <div class="overflow-hidden">
@@ -85,6 +87,40 @@ if (!isset($_GET['id']) && !isset($_GET['level'])) {
                 </svg>
                 <div class="container">
                     <!-- //Add things here/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+                    <div class="card text-center">
+                        <div class="card-header bg-color-grey text-1 text-uppercase">
+                            <?php
+                            switch ($uploadInfo['status']) {
+                                case 'Rejected':
+                                    echo '<span class="text-color-danger">Rejected</span>';
+                                    break;
+                                case 'Approved':
+                                    echo '<span class="text-color-success">Approved</span>';
+                                    break;
+                                default:
+                                    echo '<span class="">Waiting</span>';
+                                    break;
+                            }
+
+                            ?>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-1 text-4 font-weight-bold">Comment</h4>
+                            <p class="card-text"><?= html_entity_decode($uploadInfo['comment'])  ?></p>
+                            <br>
+                            <?php if ($uploadInfo['status'] == 'Rejected') { ?>
+                                <a href="workshop-edit?upload_id=<?= $uploadInfo['id'] ?>" class="btn btn-primary btn-modern">Re-Upload</a>
+                            <?php } ?>
+
+                        </div>
+                        <div class="card-footer bg-color-grey text-1 text-uppercase">
+                            <?php if ($uploadInfo['status'] != 'Waiting') { ?>
+                                Approved By: <?= ucwords($staffInfo['first_name']) . ' ' . ucwords($staffInfo['last_name']) ?>
+                                <br>
+                            <?php } ?>
+                            Date: <?= date('d', strtotime($uploadInfo['date_updated'])) . '-' . date('M', strtotime($uploadInfo['date_updated'])) . '-' . date('Y', strtotime($uploadInfo['date_updated']))  ?>
+                        </div>
+                    </div>
                 </div>
             </section>
 

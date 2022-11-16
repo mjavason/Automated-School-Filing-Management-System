@@ -483,6 +483,29 @@ function addNewFileUploads($courseReg1, $courseReg2, $departmentalFee, $facultyF
   return $db_handle->runQueryWithoutResponse($query);
 }
 
+function updateFileUploads($uploadId, $courseReg1, $courseReg2, $departmentalFee, $facultyFee, $schoolFees)
+{
+  global $db_handle;
+
+  $query = "UPDATE `file_uploads` SET 
+  `status` = 'Waiting',
+  `course_reg1` = '$courseReg1',
+  `course_reg2` = '$courseReg2',
+  `school_fees` = '$schoolFees',
+  `departmental_fee` = '$departmentalFee',
+  `faculty_fee` = '$facultyFee'
+  WHERE `file_uploads`.`id` = $uploadId";
+
+  if ($db_handle->runQueryWithoutResponse($query)) {
+    // createLog('Success', 'updateCourseSessionResults');
+    return true;
+  } else {
+    // createLog('Failed', 'updateCourseSessionResults');
+    return false;
+  }
+}
+
+
 
 function getAllFileSessionsUploaded($studentId)
 {
@@ -545,5 +568,41 @@ function returnFaIconPerStatus($status)
 
     default:
       return 'warning';
+  }
+}
+
+function getUploadInfo($uploadId)
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAllWhere('file_uploads', 'id', $uploadId);
+  if (isset($result)) {
+    return $result[0];
+  } else {
+    return false;
+  }
+}
+
+function getStudentInfo($studentId)
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAllWhere('students', 'id', $studentId);
+  if (isset($result)) {
+    return $result[0];
+  } else {
+    return false;
+  }
+}
+
+function getStaffInfo($staffId)
+{
+  global $db_handle;
+
+  $result = $db_handle->selectAllWhere('staff', 'id', $staffId);
+  if (isset($result)) {
+    return $result[0];
+  } else {
+    return false;
   }
 }

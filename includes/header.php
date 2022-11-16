@@ -17,7 +17,7 @@
 								<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
 								</li>
 							</ul>
-							<?php if (isset($_SESSION['full_name'])) { ?>
+							<?php if (isset($_SESSION['full_name']) && isset($_SESSION['student_email'])) { ?>
 								<a href="mailto:<?= $_SESSION['student_email'] ?>" class="btn btn-tertiary font-weight-semibold text-3 px-4 custom-height-1 rounded-0 align-items-center d-none d-md-flex">
 									<i class="icon-user icons text-4 me-2"></i> <?= $_SESSION['full_name'] ?>
 								</a>
