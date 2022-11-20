@@ -18,8 +18,8 @@ jobs:
         username: ${{secrets.ftp_username}}
         password: ${{ secrets.ftp_password }}
         server-dir: /jombofms/
-        exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            user
+        # exclude: |
+        #     **/.git*
+        #     **/.git*/**
+        #     **/node_modules/**
+        #     user
